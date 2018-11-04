@@ -137,6 +137,23 @@ rate: '100/h'
 
 *Note:* the rate is parsed ahead of time, so this notation doesn't affect performance.
 
+### `deleteImmediatelyIfRaceCondition`
+A boolean value which indicates whether corresponding redis entry should be deleted
+immediately if a race condition occurs.
+
+Default is `false` : In this case a new expire date will be set if a race condition occurs.
+
+### `onPossibleRaceCondition`
+A callback function will be called if a possible race condition occurs.
+Function definition: `(key: string): void`
+
+Example:
+```js 
+onPossibleRaceCondition: (key) => {
+  console.log(`A race condition has been occurred for ${key}`); 
+}
+```
+
 ## HTTP middleware
 
 This package  contains a pre-built middleware,
